@@ -45,7 +45,7 @@
 
     <div id="city-selector-modal" class="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-500 opacity-100">
         <div class="bg-white p-8 md:p-12 shadow-2xl rounded-xl max-w-lg w-full text-center transform transition-all duration-500 scale-100">
-            <img src="assets/logo-retangular.png" alt="Juliplast Embalagens Logo" class="mx-auto h-16 mb-6">
+            <img src="img/logo-retangular.png" alt="Juliplast Embalagens Logo" class="mx-auto h-16 mb-6">
             <h2 class="text-2xl font-poppins font-bold text-jp-azul mb-4">Selecione sua cidade para contato rápido</h2>
             <p class="text-gray-600 mb-6">Encontre o representante da sua região e confira o dia de entrega programada.</p>
             
@@ -65,7 +65,7 @@
     <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm shadow-md transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
             <a href="#" class="flex-shrink-0">
-                <img src="assets/logo-retangular.png" alt="Juliplast Logo" class="h-8 md:h-10">
+                <img src="img/logo-retangular.png" alt="Juliplast Logo" class="h-8 md:h-10">
             </a>
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#catalogo" class="text-jp-azul hover:text-jp-verde font-medium transition duration-300 hover:scale-105">Catálogo</a>
@@ -153,41 +153,25 @@
                 <div class="flex flex-col items-center justify-center">
                     
                     <div class="flex space-x-4 mb-4">
-                      <button id="prev-page" class="flex items-center space-x-1 px-4 py-2 bg-gray-200 text-jp-azul rounded-lg font-medium shadow-sm hover:bg-gray-300 transition duration-200 text-sm md:text-base">
-                          <i class='bx bx-chevron-left text-2xl'></i> Anterior
-                      </button>
-                      
-                      <span id="page-num" class="font-semibold text-jp-azul self-center">1</span>
-                      <span class="self-center">/</span>
-                      <span id="page-count" class="text-gray-500 self-center"></span>
-                      
-                      <button id="next-page" class="flex items-center space-x-1 px-4 py-2 bg-gray-200 text-jp-azul rounded-lg font-medium shadow-sm hover:bg-gray-300 transition duration-200 text-sm md:text-base">
-                          Próxima <i class='bx bx-chevron-right text-2xl'></i>
-                      </button>
-                      
-                      <button id="zoom-in" class="flex items-center space-x-1 px-4 py-2 bg-gray-200 text-jp-azul rounded-lg font-medium shadow-sm hover:bg-gray-300 transition duration-200 text-sm md:text-base hidden md:flex">
-                          <i class='bx bx-zoom-in text-2xl'></i>
-                      </button>
-                      <button id="zoom-out" class="flex items-center space-x-1 px-4 py-2 bg-gray-200 text-jp-azul rounded-lg font-medium shadow-sm hover:bg-gray-300 transition duration-200 text-sm md:text-base hidden md:flex">
-                          <i class='bx bx-zoom-out text-2xl'></i>
-                      </button>
-                      <a id="open-new-tab" 
-                        href="docs/catalogo-juliplast.pdf" 
-                        target="_blank" 
-                        class="flex items-center space-x-1 px-4 py-2 bg-jp-azul text-white rounded-lg font-medium shadow-sm hover:bg-blue-900 transition duration-200 text-sm md:text-base hidden md:flex">
-                          <i class='bx bx-link-external text-2xl'></i>
-                          <span>Abrir em nova aba</span>
-                      </a>
-                  </div>
+                        <a id="open-new-tab" 
+                            href="docs/catalogo-juliplast.pdf" 
+                            target="_blank" 
+                            class="flex items-center space-x-1 px-4 py-2 bg-jp-azul text-white rounded-lg font-medium shadow-sm hover:bg-blue-900 transition duration-200 text-sm md:text-base">
+                            <i class='bx bx-link-external text-2xl'></i>
+                            <span>Abrir em nova aba (Tela Cheia)</span>
+                        </a>
+                    </div>
 
-                  <div id="pdf-viewer-container" class="mt-6 mx-auto w-full max-w-4xl shadow-2xl rounded-lg overflow-hidden border-2 border-gray-200">
-                        
-                      <div id="pdf-loading-text" class="p-8 text-jp-azul font-medium">
-                          Carregando Catálogo Digital...
-                      </div>
-                      
-                      <canvas id="pdf-canvas" class="mx-auto"></canvas>
-                  </div>
+                    <div id="pdf-viewer-container" class="mt-6 mx-auto w-full max-w-4xl shadow-2xl rounded-lg overflow-hidden border-2 border-gray-200" style="height: 800px;">
+                        <iframe 
+                            src="docs/catalogo-juliplast.pdf" 
+                            width="100%" 
+                            height="100%" 
+                            frameborder="0" 
+                            title="Catálogo Juliplast Embalagens"
+                            class="w-full h-full">
+                        </iframe>
+                    </div>
 
                 </div>
             </div>
@@ -251,10 +235,6 @@
             <p class="text-xs text-gray-600">&copy; 2024 Juliplast Embalagens. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js" 
-            onload="initApp()"></script>
-            
     <script src="script.js" type="module"></script>
     
 </body>
