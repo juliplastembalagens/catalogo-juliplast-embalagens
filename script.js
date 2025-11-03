@@ -223,8 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
     accessCatalogBtnModal.addEventListener('click', () => {
         const selectedCity = citySelectModal.value;
         if (selectedCity && selectedCity !== 'default') {
+            // CORREÇÃO: Adicionamos a lógica de fechar o modal aqui.
             modal.style.opacity = '0';
             modal.style.pointerEvents = 'none';
+
+            // Sincroniza a seleção do modal com o dropdown da página
             citySelectPage.value = selectedCity;
             updateWhatsAppLinks(citySelectPage);
         }
