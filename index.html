@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juliplast Embalagens | Catálogo Premium e Contato WhatsApp</title>
     
-    <meta name="description" content="Soluções em embalagens e produtos para o seu negócio crescer. Acesse nosso catálogo folheável e fale direto com o representante da sua cidade.">
+    <meta name="description" content="Soluções em embalagens e produtos para o seu negócio crescer. Acesse nosso catálogo digital e fale direto com o representante da sua cidade.">
     <meta property="og:title" content="Juliplast Embalagens | Catálogo Premium e Contato WhatsApp">
     <meta property="og:description" content="Confira nosso catálogo digital e fale com o representante da sua cidade.">
-    <meta property="og:image" content="assets/logo-quadrada.png">
+    <meta property="og:image" content="img/logo-quadrada.png">
     <meta property="og:url" content="https://www.juliplastembalagens.com.br/">
     <meta property="og:type" content="website">
 
@@ -22,12 +22,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'jp-azul': '#002D62', // Azul-marinho escuro
-                        'jp-verde': '#00A86B', // Verde esmeralda
+                        'jp-azul': '#0a3e4f', // Azul-marinho escuro
+                        'jp-verde': '#00993', // Verde esmeralda
+                        // 'jp-amarelo': '#FCE130', // Removido
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        poppins: ['Poppins', 'sans-serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
                     },
                     backgroundImage: {
                         'gradient-hero': 'linear-gradient(135deg, #002D62 0%, #00A86B 100%)',
@@ -36,31 +37,10 @@
             }
         }
     </script>
-    
     <link rel="stylesheet" href="style.css">
-    
-    <link rel="icon" href="assets/logo-quadrada.png" type="image/png">
+    <link rel="icon" href="img/logo-quadrada.png" type="image/png">
 </head>
 <body class="bg-white font-sans text-gray-800 antialiased">
-
-    <div id="city-selector-modal" class="fixed inset-0 z-50 bg-white/95 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-500 opacity-100">
-        <div class="bg-white p-8 md:p-12 shadow-2xl rounded-xl max-w-lg w-full text-center transform transition-all duration-500 scale-100">
-            <img src="img/logo-retangular.png" alt="Juliplast Embalagens Logo" class="mx-auto h-16 mb-6">
-            <h2 class="text-2xl font-poppins font-bold text-jp-azul mb-4">Selecione sua cidade para contato rápido</h2>
-            <p class="text-gray-600 mb-6">Encontre o representante da sua região e confira o dia de entrega programada.</p>
-            
-            <div class="space-y-4">
-                <select id="city-select-modal" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-jp-verde focus:border-jp-verde transition duration-300 shadow-sm text-gray-700">
-                    <option value="" disabled selected>Escolha sua Cidade...</option>
-                    </select>
-
-                <button id="access-catalog-modal" class="w-full bg-jp-verde text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow-md transform hover:scale-[1.01] flex items-center justify-center space-x-2 disabled:opacity-50" disabled>
-                    <i class='bx bxs-truck text-xl'></i>
-                    <span>Acessar Catálogo e Contato</span>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <header id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm shadow-md transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
@@ -69,12 +49,12 @@
             </a>
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#catalogo" class="text-jp-azul hover:text-jp-verde font-medium transition duration-300 hover:scale-105">Catálogo</a>
-                <a href="#contato" class="text-jp-azul hover:text-jp-verde font-medium transition duration-300 hover:scale-105">Contato</a>
+                <a href="#beneficios" class="text-jp-azul hover:text-jp-verde font-medium transition duration-300 hover:scale-105">Benefícios</a>
                 <a href="https://www.instagram.com/embalagensjuliplast/" target="_blank" class="text-jp-azul hover:text-jp-verde font-medium transition duration-300 flex items-center space-x-1 hover:scale-105">
                     <i class='bx bxl-instagram text-xl'></i>
                     <span>Instagram</span>
                 </a>
-                <a id="navbar-whatsapp-btn" href="https://wa.me/+554630101547?text=Olá!%20Estava%20olhando%20seu%20catálogo%20e%20gostaria%20de%20fazer%20um%20pedido." target="_blank" class="bg-jp-verde text-white py-2 px-4 rounded-full font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-1">
+                <a id="navbar-whatsapp-btn" href="#" target="_blank" class="bg-jp-verde text-white py-2 px-4 rounded-full font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-1">
                     <i class='bx bxl-whatsapp text-xl'></i>
                     <span>WhatsApp</span>
                 </a>
@@ -85,12 +65,12 @@
         </div>
         <div id="mobile-menu" class="hidden md:hidden px-4 pt-2 pb-4 space-y-1 sm:px-3 bg-white shadow-inner">
             <a href="#catalogo" class="block px-3 py-2 rounded-md text-base font-medium text-jp-azul hover:bg-gray-100">Catálogo</a>
-            <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-jp-azul hover:bg-gray-100">Contato</a>
+            <a href="#beneficios" class="block px-3 py-2 rounded-md text-base font-medium text-jp-azul hover:bg-gray-100">Benefícios</a>
             <a href="https://www.instagram.com/embalagensjuliplast/" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-jp-azul hover:bg-gray-100 flex items-center space-x-2">
                  <i class='bx bxl-instagram'></i>
                  <span>Instagram</span>
             </a>
-            <a id="mobile-whatsapp-btn" href="https://wa.me/+554630101547?text=Olá!%20Estava%20olhando%20seu%20catálogo%20e%20gostaria%20de%20fazer%20um%20pedido." target="_blank" class="block bg-jp-verde text-white py-2 px-3 rounded-md font-semibold text-center mt-2 flex items-center justify-center space-x-2">
+            <a id="mobile-whatsapp-btn" href="#" target="_blank" class="block bg-jp-verde text-white py-2 px-3 rounded-md font-semibold text-center mt-2 flex items-center justify-center space-x-2">
                  <i class='bx bxl-whatsapp'></i>
                  <span>Fale Conosco</span>
             </a>
@@ -104,35 +84,23 @@
                     Soluções em embalagens e produtos para o seu negócio crescer
                 </h1>
                 <p class="text-xl md:text-2xl font-light mb-8 opacity-90 animate-fade-in">
-                    Confira nosso catálogo digital e fale com o representante da sua cidade.
+                    Selecione sua cidade, acesse nosso catálogo e fale com o representante.
                 </p>
-                <a id="hero-cta-button" href="#contato" class="inline-flex items-center space-x-2 bg-jp-verde text-white font-bold text-lg py-4 px-10 rounded-xl shadow-2xl hover:bg-green-700 transition duration-300 transform hover:scale-105 animate-bounce-slow">
-                    <i class='bx bxs-book-open text-2xl'></i>
-                    <span>Acessar Catálogo e Falar com Representante</span>
-                </a>
-            </div>
-        </section>
-        
-        <section id="contato" class="py-16 md:py-24 bg-white reveal-element">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="font-poppins text-3xl md:text-4xl font-bold text-jp-azul mb-8">
-                    Encontre Seu Representante Local
-                </h2>
                 
-                <div class="max-w-md mx-auto bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-200">
-                    <label for="city-select-page" class="block text-lg font-semibold text-gray-700 mb-3 text-left">
-                        Selecione sua cidade:
+                <div class="max-w-xl mx-auto bg-white/10 p-6 rounded-xl shadow-lg border border-white/20">
+                    <label for="city-select-page" class="block text-lg font-semibold text-white mb-3 text-left">
+                        1. Selecione sua cidade:
                     </label>
                     <select id="city-select-page" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-jp-verde focus:border-jp-verde transition duration-300 shadow-sm text-gray-700">
                         <option value="default" disabled selected>Escolha sua Cidade...</option>
                         </select>
                     
-                    <div id="representative-info" class="mt-6 p-4 border-l-4 border-jp-verde bg-green-50/50 rounded-lg text-left hidden">
-                        <p class="text-gray-900 font-semibold text-lg mb-1">
-                            Representante: <span id="rep-name" class="font-bold text-jp-azul"></span>
+                    <div id="representative-info" class="mt-4 p-3 border-l-4 border-jp-verde bg-white/20 rounded-lg text-left hidden">
+                        <p class="text-white font-semibold text-sm mb-1">
+                            Representante: <span id="rep-name" class="font-bold text-jp-verde"></span>
                         </p>
-                        <p class="text-gray-700 text-sm">
-                            Dia de Entrega Programada: <span id="rep-delivery-day" class="font-medium"></span>
+                        <p class="text-white/80 text-xs">
+                            Dia de Entrega: <span id="rep-delivery-day" class="font-medium"></span>
                         </p>
                     </div>
 
@@ -144,14 +112,14 @@
             </div>
         </section>
 
-        <section id="catalogo" class="py-16 md:py-24 bg-gray-50 reveal-element">
+        <section id="catalogo" class="py-16 md:py-24 bg-white reveal-element">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="font-poppins text-3xl md:text-4xl font-bold text-jp-azul mb-10">
-                    Catálogo Completo de Produtos
+                    2. Acesse nosso Catálogo Digital
                 </h2>
 
-                <p class="text-xl text-gray-700 mb-8">
-                    Acesse nosso catálogo digital para visualização instantânea ou faça o download.
+                <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+                    Visualize nossa linha completa de produtos com alta qualidade. Ao abrir, você pode facilmente voltar aqui para falar com o representante.
                 </p>
 
                 <div class="flex flex-col items-center justify-center">
@@ -159,47 +127,47 @@
                     <a id="access-catalog-link" 
                         href="docs/catalogo-juliplast.pdf" 
                         target="_blank" 
-                        class="inline-flex items-center justify-center space-x-3 bg-jp-verde text-white font-bold text-lg py-4 px-10 rounded-xl shadow-2xl hover:bg-green-700 transition duration-300 transform hover:scale-105">
+                        class="inline-flex items-center justify-center space-x-3 bg-jp-azul text-white font-bold text-lg py-4 px-10 rounded-xl shadow-2xl hover:bg-blue-900 transition duration-300 transform hover:scale-105">
                         <i class='bx bxs-file-pdf text-2xl'></i>
-                        <span>Ver Catálogo Agora (Abre em Nova Aba)</span>
+                        <span>Abrir Catálogo (Nova Aba)</span>
                     </a>
 
                     <a href="docs/catalogo-juliplast.pdf" download 
-                    class="mt-4 text-jp-azul hover:text-jp-verde text-sm font-medium transition duration-300 flex items-center space-x-1">
+                       class="mt-4 text-jp-azul hover:text-jp-verde text-sm font-medium transition duration-300 flex items-center space-x-1">
                         <i class='bx bx-download text-xl'></i>
                         <span>Fazer Download do PDF</span>
                     </a>
                     
-                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="beneficios" class="py-16 md:py-24 bg-white reveal-element">
+        <section id="beneficios" class="py-16 md:py-24 bg-gray-100 reveal-element">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="font-poppins text-3xl md:text-4xl font-bold text-jp-azul text-center mb-12">
                     Vantagens de Escolher a Juliplast
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     
-                    <div class="text-center p-6 bg-gray-50 rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
                         <i class='bx bxs-truck text-5xl text-jp-verde mb-4'></i>
                         <h3 class="font-poppins text-xl font-semibold text-jp-azul mb-2">Entrega Própria Regional</h3>
                         <p class="text-gray-600">Logística eficiente e dedicada para sua região, garantindo agilidade e segurança na entrega.</p>
                     </div>
 
-                    <div class="text-center p-6 bg-gray-50 rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
                          <i class='bx bx-money text-5xl text-jp-verde mb-4'></i>
                         <h3 class="font-poppins text-xl font-semibold text-jp-azul mb-2">Frete Grátis Otimizado</h3>
                         <p class="text-gray-600">Condição de frete grátis ao atingir o valor mínimo de pedido, planejando sua compra com economia.</p>
                     </div>
 
-                    <div class="text-center p-6 bg-gray-50 rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
                         <i class='bx bxs-credit-card text-5xl text-jp-verde mb-4'></i>
                         <h3 class="font-poppins text-xl font-semibold text-jp-azul mb-2">Pagamento Facilitado</h3>
                         <p class="text-gray-600">Aceitamos cartão, Pix e oferecemos crediário próprio (sujeito a análise) para flexibilidade total.</p>
                     </div>
 
-                    <div class="text-center p-6 bg-gray-50 rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
+                    <div class="text-center p-6 bg-white rounded-xl shadow-lg transform hover:scale-[1.03] transition duration-300 border-t-4 border-jp-verde">
                         <i class='bx bxs-user-detail text-5xl text-jp-verde mb-4'></i>
                         <h3 class="font-poppins text-xl font-semibold text-jp-azul mb-2">Atendimento Personalizado</h3>
                         <p class="text-gray-600">Fale diretamente com seu representante e tenha suporte consultivo e humano para suas necessidades.</p>
@@ -232,7 +200,12 @@
             <p class="text-xs text-gray-600">&copy; 2024 Juliplast Embalagens. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script src="script.js" type="module"></script>
+    
+    <a id="fixed-whatsapp-btn" href="https://wa.me/+554630101547?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido." target="_blank" class="fixed bottom-6 right-6 z-50 bg-jp-verde text-white p-4 rounded-full shadow-2xl hover:bg-green-700 transition duration-300 transform hover:scale-110 md:hidden">
+        <i class='bx bxl-whatsapp text-3xl'></i>
+    </a>
+    
+    <script src="script.js"></script>
     
 </body>
 </html>

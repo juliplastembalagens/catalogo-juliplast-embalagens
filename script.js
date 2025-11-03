@@ -1,10 +1,9 @@
 // script.js
-// IMPORTANTE: Este script agora é um MÓDULO (type="module" no HTML).
+// VERSÃO FINAL LIMPA E OTIMIZADA PARA CONVERSÃO (SEM PDF.JS)
 
-// --- 1. Dados e Constantes do Projeto (Acessível em todo o arquivo) ---
+// --- 1. Dados e Constantes do Projeto ---
 const TELE_VENDAS_PHONE = '554630101547';
-const DEFAULT_WHATSAPP_MESSAGE = "Olá! Estava olhando seu catálogo e gostaria de fazer um pedido. Sou de ";
-const CATALOG_URL = 'docs/catalogo-juliplast.pdf';
+const DEFAULT_WHATSAPP_MESSAGE = "Olá! Gostaria de fazer um pedido. Sou de ";
 
 const REPRESENTATIVES = [
     { name: 'Mateus', phone: '554699235364', cities: [
@@ -48,6 +47,8 @@ const REPRESENTATIVES = [
     ]},
 ];
 
+// --- 2. Funções de Lógica de Negócio ---
+
 function getCityList() {
     let cities = [];
     REPRESENTATIVES.forEach(rep => {
@@ -76,7 +77,112 @@ function getCityList() {
     return cities;
 }
 
-// --- Funções Auxiliares (Scroll Reveal) ---
+function populateCitySelectors() {
+    const cityList = getCityList();
+    const citySelectPage = document.getElementById('city-select-page');
+
+    const createOptions = (selector) => {
+        const defaultOption = selector.querySelector('option[disabled]');
+        if (defaultOption) {
+             selector.innerHTML = defaultOption.outerHTML;
+        } else {
+             selector.innerHTML = '<option value="default" disabled selected>Escolha sua Cidade...</option>';
+        }
+
+        cityList.forEach(city => {
+            const option = document.createElement('option');
+            option.value = city.name;
+            option.textContent = city.name;
+            option.dataset.repName = city.repName;
+            option.dataset.repPhone = city.repPhone;
+            option.dataset.delivery = city.delivery;
+            option.dataset.isTeleVendas = city.isTeleVendas ? 'true' : 'false';
+            selector.appendChild(option);
+        });
+    };
+    
+    createOptions(citySelectPage);
+}
+
+function setTeleVendasDefault() {
+    const whatsappCTAPage = document.getElementById('whatsapp-cta-page');
+    const whatsappText = document.getElementById('whatsapp-text');
+    const repInfoDiv = document.getElementById('representative-info');
+    const navbarWhatsappBtn = document.getElementById('navbar-whatsapp-btn');
+    const mobileWhatsappBtn = document.getElementById('mobile-whatsapp-btn');
+    const fixedWhatsappBtn = document.getElementById('fixed-whatsapp-btn');
+    
+    const defaultMessage = `Olá! Gostaria de fazer um pedido. Sou de [CIDADE NÃO SELECIONADA]`;
+    const defaultLink = `https://wa.me/${TELE_VENDAS_PHONE}?text=${encodeURIComponent(defaultMessage)}`;
+    
+    whatsappCTAPage.href = defaultLink;
+    whatsappText.textContent = 'Fale com nosso Tele Vendas';
+    repInfoDiv.classList.add('hidden');
+    
+    navbarWhatsappBtn.href = defaultLink;
+    mobileWhatsappBtn.href = defaultLink;
+    if (fixedWhatsappBtn) fixedWhatsappBtn.href = defaultLink; 
+
+    const navbarSpan = navbarWhatsappBtn.querySelector('span');
+    if (navbarSpan) navbarSpan.textContent = 'WhatsApp';
+}
+
+function updateWhatsAppLinks(selectElement) {
+    const whatsappCTAPage = document.getElementById('whatsapp-cta-page');
+    const whatsappText = document.getElementById('whatsapp-text');
+    const repInfoDiv = document.getElementById('representative-info');
+    const repNameSpan = document.getElementById('rep-name');
+    const repDeliveryDaySpan = document.getElementById('rep-delivery-day');
+    const navbarWhatsappBtn = document.getElementById('navbar-whatsapp-btn');
+    const mobileWhatsappBtn = document.getElementById('mobile-whatsapp-btn');
+    const fixedWhatsappBtn = document.getElementById('fixed-whatsapp-btn');
+
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+    if (selectedOption.value === 'default' || selectedOption.value === '') {
+        setTeleVendasDefault();
+        return;
+    }
+
+    const city = selectedOption.value;
+    const repName = selectedOption.dataset.repName;
+    const repPhone = selectedOption.dataset.repPhone;
+    const deliveryDay = selectedOption.dataset.delivery;
+    const isTeleVendas = selectedOption.dataset.isTeleVendas === 'true';
+
+    let whatsappMessage = `${DEFAULT_WHATSAPP_MESSAGE} Sou de ${city}.`;
+    
+    if (isTeleVendas) {
+        whatsappMessage = `Olá! Gostaria de fazer um pedido. Sou de [CIDADE NÃO LISTADA]`;
+    }
+
+    const phone = isTeleVendas ? TELE_VENDAS_PHONE : repPhone;
+    const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    whatsappCTAPage.href = waLink;
+    whatsappText.textContent = isTeleVendas ? 'Fale com o Tele Vendas' : `Falar com ${repName} via WhatsApp`;
+    
+    if (isTeleVendas) {
+        repInfoDiv.classList.add('hidden');
+    } else {
+        repInfoDiv.classList.remove('hidden');
+        repNameSpan.textContent = repName;
+        repDeliveryDaySpan.textContent = deliveryDay;
+    }
+    
+    // Atualiza todos os botões de WhatsApp
+    navbarWhatsappBtn.href = waLink;
+    mobileWhatsappBtn.href = waLink;
+    if (fixedWhatsappBtn) fixedWhatsappBtn.href = waLink;
+    
+    const navbarSpan = navbarWhatsappBtn.querySelector('span');
+    if (navbarSpan) {
+         navbarSpan.textContent = isTeleVendas ? 'Tele Vendas' : `Falar com ${repName}`;
+    }
+}
+
+
+// --- 3. Funções Auxiliares ---
 
 function setupScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal-element');
@@ -99,144 +205,44 @@ function setupScrollReveal() {
 }
 
 
-// --- Execução Principal do Script ---
+// --- 4. Execução Principal do Script (Chamada no DOM pronto) ---
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 2. Elementos DOM ---
-    const modal = document.getElementById('city-selector-modal');
-    const citySelectModal = document.getElementById('city-select-modal');
+    // --- Elementos DOM ---
     const citySelectPage = document.getElementById('city-select-page');
-    const accessCatalogBtnModal = document.getElementById('access-catalog-modal');
-    const whatsappCTAPage = document.getElementById('whatsapp-cta-page');
-    const whatsappText = document.getElementById('whatsapp-text');
-    const repInfoDiv = document.getElementById('representative-info');
-    const repNameSpan = document.getElementById('rep-name');
-    const repDeliveryDaySpan = document.getElementById('rep-delivery-day');
-    const navbarWhatsappBtn = document.getElementById('navbar-whatsapp-btn');
-    const mobileWhatsappBtn = document.getElementById('mobile-whatsapp-btn');
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
+    // Inicialização da Lógica de Negócio
+    populateCitySelectors(); // Preenche os dropdowns
+    setTeleVendasDefault();  // Configura os links para o Tele Vendas (Padrão)
+    setupScrollReveal();     // Ativa as animações de scroll
 
-    // --- 3. Funções de Manipulação do DOM (Atualizadas para o escopo) ---
-
-    function populateCitySelectors() {
-        const cityList = getCityList();
-        
-        const createOptions = (selector) => {
-            const defaultOption = selector.querySelector('option[disabled]');
-            if (defaultOption) {
-                 selector.innerHTML = defaultOption.outerHTML;
-            } else {
-                 selector.innerHTML = '<option value="" disabled selected>Escolha sua Cidade...</option>';
-            }
-
-            cityList.forEach(city => {
-                const option = document.createElement('option');
-                option.value = city.name;
-                option.textContent = city.name;
-                option.dataset.repName = city.repName;
-                option.dataset.repPhone = city.repPhone;
-                option.dataset.delivery = city.delivery;
-                option.dataset.isTeleVendas = city.isTeleVendas ? 'true' : 'false';
-                selector.appendChild(option);
-            });
-        };
-        
-        createOptions(citySelectModal);
-        createOptions(citySelectPage);
-    }
-    
-    function setTeleVendasDefault() {
-        const defaultMessage = `${DEFAULT_WHATSAPP_MESSAGE} uma cidade não selecionada.`;
-        const defaultLink = `https://wa.me/${TELE_VENDAS_PHONE}?text=${encodeURIComponent(defaultMessage)}`;
-        
-        whatsappCTAPage.href = defaultLink;
-        whatsappText.textContent = 'Fale com o Tele Vendas';
-        repInfoDiv.classList.add('hidden');
-        
-        navbarWhatsappBtn.href = defaultLink;
-        mobileWhatsappBtn.href = defaultLink;
-        const navbarSpan = navbarWhatsappBtn.querySelector('span');
-        if (navbarSpan) navbarSpan.textContent = 'WhatsApp';
-        
-        accessCatalogBtnModal.disabled = true;
-    }
-
-    function updateWhatsAppLinks(selectElement) {
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        
-        if (selectedOption.value === 'default' || selectedOption.value === '') {
-            setTeleVendasDefault();
-            return;
-        }
-
-        const city = selectedOption.value;
-        const repName = selectedOption.dataset.repName;
-        const repPhone = selectedOption.dataset.repPhone;
-        const deliveryDay = selectedOption.dataset.delivery;
-        const isTeleVendas = selectedOption.dataset.isTeleVendas === 'true';
-
-        let whatsappMessage;
-        if (isTeleVendas) {
-            whatsappMessage = `${DEFAULT_WHATSAPP_MESSAGE} uma cidade não listada.`;
-        } else {
-            whatsappMessage = `${DEFAULT_WHATSAPP_MESSAGE}${city}.`;
-        }
-        
-        const waLink = `https://wa.me/${repPhone}?text=${encodeURIComponent(whatsappMessage)}`;
-        
-        whatsappCTAPage.href = waLink;
-        whatsappText.textContent = isTeleVendas ? 'Fale com o Tele Vendas' : `Falar com ${repName} via WhatsApp`;
-        
-        if (isTeleVendas) {
-            repInfoDiv.classList.add('hidden');
-        } else {
-            repInfoDiv.classList.remove('hidden');
-            repNameSpan.textContent = repName;
-            repDeliveryDaySpan.textContent = deliveryDay;
-        }
-        
-        navbarWhatsappBtn.href = waLink;
-        mobileWhatsappBtn.href = waLink;
-        
-        const navbarSpan = navbarWhatsappBtn.querySelector('span');
-        if (navbarSpan) {
-             navbarSpan.textContent = isTeleVendas ? 'Tele Vendas' : `Falar com ${repName}`;
-        }
-        
-        if (selectElement.id === 'city-select-modal') {
-             accessCatalogBtnModal.disabled = false;
-        }
-    }
-
-    // --- Execução e Listeners ---
-    
-    populateCitySelectors(); 
-    setTeleVendasDefault();  
-    setupScrollReveal();
-
+    // --- Eventos ---
+    // Evento principal de seleção de cidade (Atualiza todos os CTAs)
     citySelectPage.addEventListener('change', (e) => updateWhatsAppLinks(e.target));
-    citySelectModal.addEventListener('change', (e) => updateWhatsAppLinks(e.target));
-
-    accessCatalogBtnModal.addEventListener('click', () => {
-        const selectedCity = citySelectModal.value;
-        if (selectedCity && selectedCity !== 'default') {
-            // CORREÇÃO: Adicionamos a lógica de fechar o modal aqui.
-            modal.style.opacity = '0';
-            modal.style.pointerEvents = 'none';
-
-            // Sincroniza a seleção do modal com o dropdown da página
-            citySelectPage.value = selectedCity;
-            updateWhatsAppLinks(citySelectPage);
-        }
-    });
-
+    
+    // Evento do menu mobile
     mobileMenuButton.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
         mobileMenuButton.querySelector('i').classList.toggle('bx-menu');
         mobileMenuButton.querySelector('i').classList.toggle('bx-x');
     });
 
+    // Oculta/Exibe o botão WhatsApp flutuante ao rolar
+    const fixedWhatsappBtn = document.getElementById('fixed-whatsapp-btn');
+    if (fixedWhatsappBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) { // Mostra se rolou para baixo
+                fixedWhatsappBtn.classList.remove('opacity-0', 'pointer-events-none');
+                fixedWhatsappBtn.classList.add('opacity-100');
+            } else { // Oculta no topo da página
+                fixedWhatsappBtn.classList.add('opacity-0', 'pointer-events-none');
+                fixedWhatsappBtn.classList.remove('opacity-100');
+            }
+        });
+        // Oculta no carregamento inicial (no mobile, para não cobrir o CTA do Hero)
+        fixedWhatsappBtn.classList.add('opacity-0', 'pointer-events-none');
+    }
 });
