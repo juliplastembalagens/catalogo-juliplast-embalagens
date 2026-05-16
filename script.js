@@ -18,7 +18,7 @@ const REPRESENTATIVES = [
         { name: 'Itapejara D\'Oeste', delivery: 'segunda-feira' },
         { name: 'Bom Sucesso', delivery: 'segunda-feira' },
     ]},
-    { name: 'Reinaldo', phone: '554699076900', cities: [
+    { name: 'Adélio', phone: '554699076900', cities: [
         { name: 'Ampere', delivery: 'sexta-feira' },
         { name: 'Francisco Beltrão', delivery: 'segunda-feira' },
         { name: 'Coronel Vivida', delivery: 'segunda-feira' },
@@ -220,8 +220,18 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollReveal();     // Ativa as animações de scroll
 
     // --- Eventos ---
-    // Evento principal de seleção de cidade (Atualiza todos os CTAs)
-    citySelectPage.addEventListener('change', (e) => updateWhatsAppLinks(e.target));
+    // Evento principal de seleção de cidade (Atualiza todos os CTAs e força o fechamento no mobile)
+    ['input', 'change'].forEach(evento => {
+        citySelectPage.addEventListener(evento, (e) => {
+            updateWhatsAppLinks(e.target);
+            
+            // Se o usuário selecionou uma cidade válida, removemos o foco do campo.
+            // Isso força o teclado/seletor do celular a fechar imediatamente.
+            if (e.target.value !== 'default') {
+                e.target.blur(); 
+            }
+        });
+    });
     
     // Evento do menu mobile
     mobileMenuButton.addEventListener('click', () => {
